@@ -1,9 +1,11 @@
-package mock;
+package mockito;
 
 
-import org.junit.jupiter.api.Assertions;
+import mock.DoorPanel;
+import mock.SecurityCenter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.mockito.Mockito.verify;
 
@@ -14,16 +16,16 @@ public class SecurityCenterTest {
     * */
 
     SecurityCenter securityCenter;
-    MockDoorPanel mockDoorPanel;
+    DoorPanel doorPanel;
     @BeforeEach
     public void setUp() {
-        mockDoorPanel = new MockDoorPanel();
-        securityCenter = new SecurityCenter(mockDoorPanel);
+        doorPanel = Mockito.mock(DoorPanel.class);
+        securityCenter = new SecurityCenter(doorPanel);
     }
 
     @Test
     public void shouldVerifyDoorIsClosed() {
         securityCenter.switchOn();
-        Assertions.assertTrue(mockDoorPanel.closeIsCalled());
+        verify(doorPanel).close();
     }
 }
